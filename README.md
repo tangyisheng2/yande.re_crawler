@@ -3,14 +3,14 @@
 
 **My very first crawler using python.**
 
-##Requirements
+## Requirements
 
 - Python 3.5+
 - BeautifulSoup 4
 - Pillow
 - requests
 
-##Usage
+## Usage
 
 Create a folder named 'download'
 
