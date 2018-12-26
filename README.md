@@ -14,9 +14,14 @@
 
 Create a folder named 'download'
 
-`python yande_v3.py`
+`python yande.py`
 
 Type your URL form [yande.re](https://yande.re)
 
 The image will be downloaded to folder 'download'
 
+
+## Todo
+1. Craw in multi-pages
+2. Auto sorting by tags
+3. Multi-thread crawling (Maybe)
