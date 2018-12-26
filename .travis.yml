@@ -10,5 +10,4 @@ install:
 
 
 script:
-  - python yande.py
-  - https://yande.re/post
+  - python yande.py https://yande.re/post?tags=naruto+

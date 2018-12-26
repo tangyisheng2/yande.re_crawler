@@ -5,6 +5,7 @@ from bs4 import BeautifulSoup
 from PIL import Image
 from io import BytesIO
 import urllib
+from sys import argv
 
 # Config
 headers = {
@@ -24,7 +25,10 @@ def get_link(url):
 
 
 def main():
-    url = input('URL：')
+    if len(argv) == 2:  # 判断是否有传参
+        url = argv[1]
+    else:
+        url = input('URL：')
     print("Working in progress:")
     url_list = get_link(url)
     count = 0
