@@ -1,4 +1,4 @@
-urllib
+urllib3
 requests
 pillow
 bs4
