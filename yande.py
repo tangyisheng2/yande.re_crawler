@@ -1,11 +1,12 @@
 __author__ = 'Eason'
+import urllib
+from io import BytesIO
+from sys import argv
+
 # -*- coding: utf-8 -*-
 import requests
-from bs4 import BeautifulSoup
 from PIL import Image
-from io import BytesIO
-import urllib
-from sys import argv
+from bs4 import BeautifulSoup
 
 # Config
 headers = {
@@ -33,8 +34,8 @@ def main():
     url_list = get_link(url)
     count = 0
     for seq in url_list:
-        # response = requests.get(seq.attrs['href'])  # Download image directly
-        response = requests.get(seq.attrs['href'], proxies=proxies)  # Download image via proxy
+        response = requests.get(seq.attrs['href'])  # Download image directly
+        # response = requests.get(seq.attrs['href'], proxies=proxies)  # Download image via proxy
         image = Image.open(BytesIO(response.content))
         filename = str.split(seq.attrs['href'], '/')[-1]  # Correct filename
         raw_name = urllib.parse.unquote(filename)

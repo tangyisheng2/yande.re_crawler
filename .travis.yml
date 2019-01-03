@@ -7,7 +7,6 @@ install:
   - pip install requests
   - pip install pillow
   - pip install bs4
-  - pip install lxml
 
 
 script:
