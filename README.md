@@ -1,5 +1,6 @@
 # yande.re_crawler
 ![](https://img.shields.io/hexpm/l/plug.svg)
+[![Build Status](https://travis-ci.org/tangyisheng2/yande.re_crawler.svg?branch=master)](https://travis-ci.org/tangyisheng2/yande.re_crawler)
 
 **My very first crawler using python.**
 
