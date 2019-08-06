@@ -19,6 +19,14 @@ proxies = {
 }
 
 
+def check_proxy(proxy):
+    global proxies  # 声明全局变量
+    try:
+        response = requests.get(url='https://www.google.com', proxies=proxy, timeout=5)
+    except requests.exceptions.ProxyError:
+        proxies = None
+
+
 def get_tag(url):
     params = urllib.parse.parse_qs(urllib.parse.urlparse(url).query)
     tag = params['tags'][0]
@@ -26,17 +34,19 @@ def get_tag(url):
 
 
 def check_tag_dir(tag):
+    tag = tag.strip()
     try:
         print("Checking download dictionary...")
-        os.makedirs('./download', False)
+        os.makedirs(path='./download', mode=0o777, exist_ok=False)
     except FileExistsError:
         print("Success")
         try:
             print("Creating folder using tag...")
-            os.makedirs(f'{"./download/"}{tag}', False)
+            os.makedirs(path=f'{"./download/"}{tag}', mode=0o777, exist_ok=False)
         except FileExistsError:
             print("Folder already exist...Start downloading...")
         path = f'{r"./download/"}{tag}{r"/"}'
+        path = path.strip()  # 防止空格报错
         return path
 
 
@@ -55,14 +65,18 @@ def main():
 
     print("Working in progress:")
     url = url.strip()  # 去除URL中前后空格防止出错
+    enable_proxy = check_proxy(proxies)
     url_list = get_link(url)
     tag = get_tag(url)  # 检查文件夹是否存在
     path = check_tag_dir(tag)
     count = 0
     total = url_list.__len__()
     for seq in url_list:
-        response = requests.get(seq.attrs['href'])  # Download image directly
-        # response = requests.get(seq.attrs['href'], proxies=proxies)  # Download image via proxy
+        try:
+            response = requests.get(seq.attrs['href'], proxies=proxies)  # Download image via proxy
+        except:
+            response = requests.get(seq.attrs['href'])  # Download image directly
+
         image = Image.open(BytesIO(response.content))
         filename = str.split(seq.attrs['href'], '/')[-1]  # Correct filename
         raw_name = urllib.parse.unquote(filename)
