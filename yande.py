@@ -37,12 +37,12 @@ def check_tag_dir(tag):
     tag = tag.strip()
     try:
         print("Checking download dictionary...")
-        os.makedirs(path='./download', mode=0o777, exist_ok=False)
+        os.makedirs('./download', mode=0o777, exist_ok=False)
     except FileExistsError:
         print("Success")
         try:
             print("Creating folder using tag...")
-            os.makedirs(path=f'{"./download/"}{tag}', mode=0o777, exist_ok=False)
+            os.makedirs(f'{"./download/"}{tag}', mode=0o777, exist_ok=False)
         except FileExistsError:
             print("Folder already exist...Start downloading...")
         path = f'{r"./download/"}{tag}{r"/"}'
