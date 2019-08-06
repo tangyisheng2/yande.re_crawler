@@ -21,10 +21,13 @@ proxies = {
 
 def check_proxy(proxy):
     global proxies  # 声明全局变量
+    print("[Initialization]Checking Proxy...")
     try:
         response = requests.get(url='https://www.google.com', proxies=proxy, timeout=5)
+        print("[Initialization]Proxy test passed...")
     except requests.exceptions.ProxyError:
         proxies = None
+        print("[Initialization]Proxy test failed...Direct download")
 
 
 def get_tag(url):
@@ -36,15 +39,15 @@ def get_tag(url):
 def check_tag_dir(tag):
     tag = tag.strip()
     try:
-        print("Checking download dictionary...")
+        print("[Initialization]Checking download dictionary...")
         os.makedirs('./download', mode=0o777, exist_ok=False)
     except FileExistsError:
-        print("Success")
+        print("[Initialization]Download dictionary check Success")
         try:
-            print("Creating folder using tag...")
+            print("[Initialization]Creating folder using tag...")
             os.makedirs(f'{"./download/"}{tag}', mode=0o777, exist_ok=False)
         except FileExistsError:
-            print("Folder already exist...Start downloading...")
+            print("[Initialization]Folder already exist...Start downloading...")
         path = f'{r"./download/"}{tag}{r"/"}'
         path = path.strip()  # 防止空格报错
         return path
@@ -63,7 +66,7 @@ def main():
     else:
         url = input('URL：')
 
-    print("Working in progress:")
+    print("Initializing...")
     url = url.strip()  # 去除URL中前后空格防止出错
     enable_proxy = check_proxy(proxies)
     url_list = get_link(url)
@@ -83,7 +86,7 @@ def main():
         image.save(path + raw_name)
         count = count + 1
         process_percentage = '{:.2%}'.format(count / total)
-        print("Downloading", process_percentage, ":", "Saved", count, 'image(s),', "Total", total, 'image(s) on page')
+        print("[Downloading", process_percentage, "]:", "Saved", count, 'image(s),', "Total", total, 'image(s) on page')
 
     print("Done")
 
